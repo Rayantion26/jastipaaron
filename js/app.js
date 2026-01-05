@@ -549,7 +549,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Injects a "Back" button on every page except FrontPage
     const isFrontPage = window.location.pathname.toLowerCase().includes('frontpage.html') ||
         window.location.pathname.toLowerCase().includes('index.html') ||
-        (window.location.pathname.endsWith('/') && window.location.pathname.length < 2); // Root
+        (window.location.pathname.endsWith('/') && window.location.pathname.length < 2) ||
+        window.location.pathname.toLowerCase().endsWith('/jastipaaron/'); // Root
 
     // Also exclude if specifically requested not to show? No, user said "every HTML".
     // But logically, FrontPage is start.
@@ -569,7 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const path = window.location.pathname.toLowerCase();
 
         // Identify Page Types
-        const isFrontPage = path.includes('frontpage') || path.includes('index.html') || (path.endsWith('/') && path.length < 5);
+        const isFrontPage = path.includes('frontpage') || path.includes('index.html') || (path.endsWith('/') && path.length < 5) || path.endsWith('/jastipaaron/');
         const isCoffee = path.includes('coffee') || path.includes('beans');
         const isDripper = path.includes('dripper');
         const isSnacks = path.includes('snacks');
