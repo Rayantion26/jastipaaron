@@ -319,7 +319,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (summaryEl) {
         if (AppState.cart.length === 0) {
             alert('No items in cart.');
-            window.location.href = 'FrontPage.html';
+            window.location.href = '/jastipaaron/';
         } else {
             const itemsHtml = AppState.cart.map(i => `
                 <div style="display:flex; justify-content:space-between; margin-bottom:0.5rem;">
@@ -523,7 +523,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Smart Header Logic ---
     // "Apply to all html files except FrontPage.html"
-    if (!window.location.pathname.includes('FrontPage.html')) {
+    if (!window.location.pathname.includes('/jastipaaron/')) {
         let lastScrollY = window.scrollY;
         const navbar = document.querySelector('.navbar');
 
@@ -547,7 +547,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global Back Button Injection ---
     // Injects a "Back" button on every page except FrontPage
-    const isFrontPage = window.location.pathname.toLowerCase().includes('frontpage.html') ||
+    const isFrontPage = window.location.pathname.toLowerCase().includes('/jastipaaron/') ||
         window.location.pathname.toLowerCase().includes('index.html') ||
         (window.location.pathname.endsWith('/') && window.location.pathname.length < 2) ||
         window.location.pathname.toLowerCase().endsWith('/jastipaaron/'); // Root
