@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout | Jastip Aaron</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <div id="transition-curtain"></div>
+    <nav class="navbar">
+        <a href="FrontPage.html" class="brand">Jastip Aaron</a>
+    </nav>
+
+    <div class="container" style="max-width: 800px; margin: 0 auto;">
+        <div class="payment-container" id="invoice-area"
+            style="position: relative; padding: 90px 40px 40px 40px; background: white; border-radius: 12px; box-shadow: 0 4px 24px rgba(0,0,0,0.08);">
+
+            <!-- Exit Button -->
+            <a href="FrontPage.html"
+                style="position: absolute; top: 30px; left: 30px; background: #f0f0f0; border: none; cursor: pointer; color: #333; padding: 10px 15px; border-radius: 50px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; transition: background 0.2s;"
+                title="Exit to Shop">
+                <i class="fas fa-arrow-left"></i> Exit
+            </a>
+
+            <!-- Download PDF Button -->
+            <button id="download-invoice"
+                style="position: absolute; top: 30px; left: 130px; background: #f0f0f0; border: none; cursor: pointer; color: #333; padding: 10px 15px; border-radius: 50px; font-weight: bold; display: flex; align-items: center; gap: 8px; transition: background 0.2s;"
+                title="Download Unpaid Invoice">
+                <i class="fas fa-download"></i> Invoice
+            </button>
+
+            <!-- WhatsApp Button -->
+            <a href="https://wa.me/6285183005811" target="_blank"
+                style="position: absolute; top: 30px; right: 30px; background: #25D366; border: none; cursor: pointer; color: white; padding: 10px 15px; border-radius: 50px; text-decoration: none; font-weight: bold; display: flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(37, 211, 102, 0.3);"
+                title="Contact via WhatsApp">
+                <i class="fab fa-whatsapp" style="font-size: 1.2rem;"></i> +62 85183005811
+            </a>
+
+            <!-- Main Message -->
+            <div
+                style="text-align: center; margin-bottom: 3rem; border-bottom: 2px solid #f0f0f0; padding-bottom: 2rem;">
+                <h1 id="screenshot-msg" style="color: #222; font-size: 2rem; margin-bottom: 1rem;">Screenshot this list,
+                    then send to owner</h1>
+                <p style="color: #666;">Please complete your payment mainly via transfer, Go-Pay, or discuss with owner.
+                </p>
+            </div>
+
+            <!-- Content for Invoice -->
+            <div class="invoice-content">
+
+                <div style="margin-bottom: 2rem;">
+                    <div
+                        style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 1.5rem;">
+                        <h4 style="margin:0;">Order Summary</h4>
+                        <span id="status-badge"
+                            style="display: none; background: #ffeba1; color: #856404; padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: bold; border: 1px solid #ffeeba;">STATUS:
+                            UNPAID</span>
+                    </div>
+                    <div id="payment-summary"
+                        style="font-family: monospace; font-size: 1.1rem; border: 1px solid #eee; padding: 20px; border-radius: 8px;">
+                        <!-- Injected by JS -->
+                        <div style="text-align: center; color: #999;">Loading order details...</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 3rem;">
+                    <p style="font-size: 0.9rem; color: #888;">Order ID: <span id="order-id">Generating...</span></p>
+                    <p style="font-size: 0.9rem; color: #888;">Date: <span id="order-date"></span></p>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="FrontPage.html" style="color: #666; text-decoration: none;">&larr; Back to Shop</a>
+        </div>
+    </div>
+
+    <!-- HTML2PDF Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Generate Random Order ID
+            const orderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('order-id').textContent = orderId;
+
+            // Set Date
+            const now = new Date();
+            document.getElementById('order-date').textContent = now.toLocaleDateString() + ' ' + now.toLocaleTimeString();
+
+            // Download Logic
+            document.getElementById('download-invoice').addEventListener('click', () => {
+                const element = document.getElementById('invoice-area');
+                const opt = {
+                    margin: [10, 10],
+                    filename: 'JastipAaron_Invoice_' + orderId + '.pdf',
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2, useCORS: true },
+                    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+                };
+
+                // Hide buttons and screenshot message for PDF, SHOW status badge
+                const btns = element.querySelectorAll('button, a[style*="absolute"]');
+                const msg = document.getElementById('screenshot-msg');
+                const badge = document.getElementById('status-badge');
+
+                btns.forEach(b => b.style.display = 'none');
+                if (msg) msg.style.display = 'none';
+                if (badge) badge.style.display = 'inline-block'; // or block/inline
+
+                html2pdf().set(opt).from(element).save().then(() => {
+                    // Restore buttons and message, HIDE status badge
+                    btns.forEach(b => {
+                        if (b.tagName === 'A') b.style.display = 'flex';
+                        else b.style.display = 'flex';
+                    });
+                    if (msg) msg.style.display = 'block';
+                    if (badge) badge.style.display = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

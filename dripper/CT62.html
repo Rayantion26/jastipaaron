@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CT62 Coffee Dripper | Jastip Aaron</title>
+    <link rel="stylesheet" href="../styles/main.css">
+    <style>
+        /* Specific Styles for Color Swatches on this page */
+        .color-swatch {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+
+        .color-swatch.selected {
+            border-color: #333;
+            transform: scale(1.1);
+        }
+
+        .color-swatch-red {
+            background: #D9534F;
+        }
+
+        .color-swatch-peach {
+            background: #FFCBA4;
+        }
+
+        .color-swatch-violet {
+            background: #9B59B6;
+        }
+
+        .color-swatch-white {
+            background: #ffffff;
+            border: 1px solid #ddd;
+        }
+
+        .color-swatch-blue {
+            background: #5DADE2;
+        }
+
+        .color-swatch-yellow {
+            background: #F4D03F;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="transition-curtain"></div>
+    <nav class="navbar">
+        <div class="hamburger-icon" id="hamburger-icon">
+            &#9776;
+        </div>
+        <a href="../FrontPage.html" class="brand">Jastip Aaron</a>
+        <div class="nav-links">
+            <a href="../coffee.html" class="nav-link">Beans</a>
+            <a href="../dripper.html" class="nav-link">Drippers</a>
+            <a href="../snacks.html" class="nav-link">Snacks</a>
+        </div>
+        <div class="cart-icon" id="cart-icon">
+            CART
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <span style="cursor:pointer" id="close-cart">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-footer">
+                <div class="total-price">
+                    <span>Total</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button id="checkout-btn" class="add-to-cart-btn" onclick="window.location.href='../payment.html'">Send
+                    Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail -->
+    <div class="container product-detail">
+        <div>
+            <!-- Default to White/Main Image -->
+            <img src="https://shoplineimg.com/554c75fa039055280b00006e/663b3c8360b2e90011cbb62f/800x.webp?source_format=JPG"
+                class="detail-image" id="main-product-image" alt="CT62 Dripper"
+                style="background:#f9f9f9; min-height:500px; object-fit:contain;">
+        </div>
+
+        <div class="detail-info">
+            <h1>CT62 Coffee Dripper</h1>
+            <p style="margin-bottom: 2rem; color: #666; line-height: 1.6;">
+                The CT62 is a masterpiece of ceramic engineering. Designed for consistent extraction and beautiful
+                aesthetics. A must-have for any serious brewer.
+            </p>
+
+            <div class="price-tag">Rp 875,000</div>
+
+            <div class="options-group">
+                <span class="options-label">Select Color</span>
+                <div class="color-options">
+                    <!-- Red -->
+                    <div class="color-swatch color-swatch-red" data-color="Red" title="Red"
+                        data-image="https://shoplineimg.com/554c75fa039055280b00006e/65ea8118f6387900117d5095/2000x.webp?source_format=JPG">
+                    </div>
+                    <!-- Peach -->
+                    <div class="color-swatch color-swatch-peach" data-color="Peach" title="Peach"
+                        data-image="https://shoplineimg.com/554c75fa039055280b00006e/663b3ca77e58d60014185660/2000x.webp?source_format=jpg">
+                    </div>
+                    <!-- Violet -->
+                    <div class="color-swatch color-swatch-violet" data-color="Violet" title="Violet"
+                        data-image="https://shoplineimg.com/554c75fa039055280b00006e/65af4fc47c4355001a83582e/2000x.webp?source_format=jpg">
+                    </div>
+                    <!-- White -->
+                    <div class="color-swatch color-swatch-white selected" data-color="White" title="White"
+                        data-image="https://shoplineimg.com/554c75fa039055280b00006e/663b3c8360b2e90011cbb62f/2000x.webp?source_format=JPG">
+                    </div>
+                    <!-- Blue -->
+                    <div class="color-swatch color-swatch-blue" data-color="Blue" title="Blue"
+                        data-image="https://shoplineimg.com/554c75fa039055280b00006e/669617dbe07d52000df35144/2000x.webp?source_format=jpg">
+                    </div>
+                    <!-- Yellow -->
+                    <div class="color-swatch color-swatch-yellow" data-color="Yellow" title="Yellow"
+                        data-image="https://shoplineimg.com/554c75fa039055280b00006e/6695fd360dc31c00132173de/2000x.webp?source_format=jpg">
+                    </div>
+                </div>
+            </div>
+
+            <button id="add-to-cart-btn" class="add-to-cart-btn" data-id="CT62" data-name="CT62 Coffee Dripper"
+                data-price="875000"
+                data-image="https://shoplineimg.com/554c75fa039055280b00006e/663b3c8360b2e90011cbb62f/800x.webp?source_format=JPG">
+                Add to Cart
+            </button>
+        </div>
+    </div>
+
+    <footer>
+
+    </footer>
+
+    <!-- Hamburger Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-sidebar">
+            <div class="menu-header">
+                <div class="menu-brand">JASTIP AARON</div>
+                <span style="cursor:pointer; font-size:2rem;" id="close-menu">&times;</span>
+            </div>
+            <div class="menu-links">
+                <a href="#" class="menu-link mobile-cart-link" onclick="openCart(); closeMenu(); return false;">
+                    Cart <span id="mobile-menu-cart-count">(0)</span>
+                </a>
+                <a href="../coffee.html" class="menu-link">Beans</a>
+                <a href="../dripper.html" class="menu-link">Drippers</a>
+                <a href="../snacks.html" class="menu-link">Snacks</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/app.js"></script>
+    <script>
+        // Inline script to handle image switching for this specific page
+        document.addEventListener('DOMContentLoaded', () => {
+            const swatches = document.querySelectorAll('.color-swatch');
+            const mainImage = document.getElementById('main-product-image');
+            const addToCartBtn = document.getElementById('add-to-cart-btn');
+
+            swatches.forEach(swatch => {
+                swatch.addEventListener('click', () => {
+                    // 1. Update Selected State
+                    swatches.forEach(s => s.classList.remove('selected'));
+                    swatch.classList.add('selected');
+
+                    // 2. Update Main Image
+                    const newImageSrc = swatch.getAttribute('data-image');
+                    if (newImageSrc) {
+                        mainImage.src = newImageSrc;
+                    }
+
+                    // 3. Update Add Copmponent Data
+                    if (addToCartBtn) {
+                        addToCartBtn.dataset.image = newImageSrc;
+                        // The app.js logic will pick up the 'selected' class color automatically
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

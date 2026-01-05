@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snacks | Jastip Aaron</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&family=Montserrat:wght@900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Layout for Sidebar + Grid */
+        .content-wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .filter-item {
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .filter-item:hover,
+        .filter-item.active {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .main-content {
+            flex-grow: 1;
+        }
+
+        .controls-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .sort-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Product Grid adjustments if needed, otherwise reuses styles/main.css */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="transition-curtain"></div>
+    <nav class="navbar">
+        <div class="hamburger-icon" id="hamburger-icon">
+            &#9776;
+        </div>
+        <a href="FrontPage.html" class="brand">Jastip Aaron</a>
+
+        <div class="nav-links">
+            <a href="coffee.html" class="nav-link">Beans</a>
+            <a href="dripper.html" class="nav-link">Drippers</a>
+            <a href="snacks.html" class="nav-link active">Snacks</a>
+        </div>
+        <div class="cart-icon" id="cart-icon">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <span style="cursor:pointer" id="close-cart">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-footer">
+                <div class="total-price">
+                    <span>Total</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button id="checkout-btn" class="add-to-cart-btn" onclick="window.location.href='payment.html'">Send
+                    Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="container category-header">
+        <h1 class="category-title">Snacks</h1>
+        <p>Authentic favorites from Taiwan.</p>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- Sidebar Filter -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Categories</h3>
+                <ul class="filter-list" id="snack-filter">
+                    <li class="filter-item active" data-filter="all">All</li>
+                    <li class="filter-item" data-filter="lays">Lay's (樂事)</li>
+                    <li class="filter-item" data-filter="other">Other Snacks</li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="controls-bar">
+                <label for="sort-select" style="margin-right:0.5rem;">Sort by:</label>
+                <select id="sort-select" class="sort-select">
+                    <option value="default">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+
+            <!-- Product Grid -->
+            <div class="product-grid" id="product-grid">
+
+                <!-- Section: Lay's -->
+                <div style="grid-column: 1 / -1; margin: 2rem 0 1rem 0;" data-brand="lays">
+                    <h2 class="section-title">
+                        Lay's (樂事)
+                    </h2>
+                </div>
+
+                <!-- Lay's Products -->
+                <!-- 11 - Sour Cream & Onion -->
+                <div class="product-card" data-brand="lays" data-price="188000">
+                    <img src="images/lays_sour_cream_onion.png" class="product-image" alt="Lay's Sour Cream & Onion">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Sour Cream & Onion (184.2g)</div>
+                        <div class="product-price">Rp 188,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Sour Cream & Onion</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 184.2g</div>
+                            <div class="desc-item"><span>Type:</span> Potato Chips</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Sour Cream & Onion (184.2g)', '188000', 'images/lays_sour_cream_onion.png', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 13 - Lay's Long 2-Pack -->
+                <div class="product-card" data-brand="lays" data-price="42000">
+                    <img src="https://down-tw.img.susercontent.com/file/tw-11134207-7ra0u-mdeass45kfnj5e.webp"
+                        class="product-image" alt="Lay's Long 2-Pack">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Long 2-Pack (102g x2)</div>
+                        <div class="product-price">Rp 42,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Sour Cream</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 102g x 2 Pack</div>
+                            <div class="desc-item"><span>Type:</span> Long Cut Chips</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Long 2-Pack (102g x2)', '42000', 'https://down-tw.img.susercontent.com/file/tw-11134207-7ra0u-mdeass45kfnj5e.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 14 - Lay's Fresh-Cut Crispy Fries -->
+                <div class="product-card" data-brand="lays" data-price="72000">
+                    <img src="https://down-tw.img.susercontent.com/file/tw-11134207-81ztk-me6lgh63sdtx05.webp"
+                        class="product-image" alt="Lay's Fresh-Cut Crispy Fries">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Fresh-Cut Crispy Fries (18g x4)</div>
+                        <div class="product-price">Rp 72,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Classic Original</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 18g x 4 Pack</div>
+                            <div class="desc-item"><span>Note:</span> No Box</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Fresh-Cut Crispy Fries (18g x4)', '72000', 'https://down-tw.img.susercontent.com/file/tw-11134207-81ztk-me6lgh63sdtx05.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 15 - Lay's Fresh-Cut Seaweed -->
+                <div class="product-card" data-brand="lays" data-price="72000">
+                    <img src="https://down-tw.img.susercontent.com/file/tw-11134207-81ztl-me6lglzrzimf91.webp"
+                        class="product-image" alt="Lay's Fresh-Cut Seaweed">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Fresh-Cut Seaweed (18g x4)</div>
+                        <div class="product-price">Rp 72,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Seaweed</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 18g x 4 Pack</div>
+                            <div class="desc-item"><span>Note:</span> No Box</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Fresh-Cut Seaweed (18g x4)', '72000', 'https://down-tw.img.susercontent.com/file/tw-11134207-81ztl-me6lglzrzimf91.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 16 - Lay's Fresh-Cut Cheese -->
+                <div class="product-card" data-brand="lays" data-price="72000">
+                    <img src="https://down-tw.img.susercontent.com/file/tw-11134207-81zti-me6lgp4yhjpd7c.webp"
+                        class="product-image" alt="Lay's Fresh-Cut Cheese">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Fresh-Cut Cheese (18g x4)</div>
+                        <div class="product-price">Rp 72,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Cheese</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 18g x 4 Pack</div>
+                            <div class="desc-item"><span>Note:</span> No Box</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Fresh-Cut Cheese (18g x4)', '72000', 'https://down-tw.img.susercontent.com/file/tw-11134207-81zti-me6lgp4yhjpd7c.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 17 - Lay's Fresh-Cut Cilantro -->
+                <div class="product-card" data-brand="lays" data-price="72000">
+                    <img src="https://down-tw.img.susercontent.com/file/tw-11134207-81ztg-me6lgtx77xfk3c.webp"
+                        class="product-image" alt="Lay's Fresh-Cut Cilantro">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Fresh-Cut Cilantro (18g x4)</div>
+                        <div class="product-price">Rp 72,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Cilantro</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 18g x 4 Pack</div>
+                            <div class="desc-item"><span>Note:</span> No Box</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Fresh-Cut Cilantro (18g x4)', '72000', 'https://down-tw.img.susercontent.com/file/tw-11134207-81ztg-me6lgtx77xfk3c.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 18 - Lay's Fresh-Cut Pan Seared Scallop -->
+                <div class="product-card" data-brand="lays" data-price="72000">
+                    <img src="https://down-tw.img.susercontent.com/file/tw-11134207-81zto-me6lgxuch3if12.webp"
+                        class="product-image" alt="Lay's Fresh-Cut Pan Seared Scallop">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Fresh-Cut Pan Seared Scallop (18g x4)</div>
+                        <div class="product-price">Rp 72,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Pan Seared Scallop</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 18g x 4 Pack</div>
+                            <div class="desc-item"><span>Note:</span> No Box</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Fresh-Cut Pan Seared Scallop (18g x4)', '72000', 'https://down-tw.img.susercontent.com/file/tw-11134207-81zto-me6lgxuch3if12.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 19 - Lay's Fresh-Cut Honey Mustard -->
+                <div class="product-card" data-brand="lays" data-price="72000">
+                    <img src="https://down-tw.img.susercontent.com/file/tw-11134207-81zti-me6lh0y4696s37.webp"
+                        class="product-image" alt="Lay's Fresh-Cut Honey Mustard">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Fresh-Cut Honey Mustard (18g x4)</div>
+                        <div class="product-price">Rp 72,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Honey Mustard</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 18g x 4 Pack</div>
+                            <div class="desc-item"><span>Note:</span> No Box</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Fresh-Cut Honey Mustard (18g x4)', '72000', 'https://down-tw.img.susercontent.com/file/tw-11134207-81zti-me6lh0y4696s37.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+                <!-- 20 - Lay's Swiss Rich Cheese -->
+                <div class="product-card" data-brand="lays" data-price="28500">
+                    <img src="https://down-tw.img.susercontent.com/file/d43d149c07a598c5964ed723d8f26030.webp"
+                        class="product-image" alt="Lay's Swiss Rich Cheese">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Swiss Rich Cheese (34g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Swiss Rich Cheese</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 34g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Swiss Rich Cheese (34g)', '28500', 'https://down-tw.img.susercontent.com/file/d43d149c07a598c5964ed723d8f26030.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 21 - Lay's Kyushu Roasted Seaweed -->
+                <div class="product-card" data-brand="lays" data-price="28500">
+                    <img src="https://down-tw.img.susercontent.com/file/487ec17e157275b10cdab0eb112b6d59.webp"
+                        class="product-image" alt="Lay's Kyushu Roasted Seaweed">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Kyushu Roasted Seaweed (34g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Kyushu Roasted Seaweed</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 34g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Kyushu Roasted Seaweed (34g)', '28500', 'https://down-tw.img.susercontent.com/file/487ec17e157275b10cdab0eb112b6d59.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 22 - Lay's Refreshing Lime -->
+                <div class="product-card" data-brand="lays" data-price="28500">
+                    <img src="https://down-tw.img.susercontent.com/file/859622e69c4ad6948a98183c1977495e.webp"
+                        class="product-image" alt="Lay's Refreshing Lime">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Refreshing Lime (34g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Refreshing Lime</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 34g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Refreshing Lime (34g)', '28500', 'https://down-tw.img.susercontent.com/file/859622e69c4ad6948a98183c1977495e.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 23 - Lay's Wavy Pepper Fragrant Chicken -->
+                <div class="product-card" data-brand="lays" data-price="28500">
+                    <img src="https://down-tw.img.susercontent.com/file/583a943b7459b2411d41e1b4f4b1fc5e.webp"
+                        class="product-image" alt="Lay's Wavy Pepper Fragrant Chicken">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Wavy Pepper Fragrant Chicken (30.5g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Wavy Pepper Fragrant Chicken</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 30.5g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Wavy Pepper Fragrant Chicken (30.5g)', '28500', 'https://down-tw.img.susercontent.com/file/583a943b7459b2411d41e1b4f4b1fc5e.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 24 - Lay's Crispy Chicken Drumstick -->
+                <div class="product-card" data-brand="lays" data-price="28500">
+                    <img src="https://specialtyfoodsource.com/cdn/shop/files/Lay_sCrispyFriedChicken_Taiwan_287baff5-e716-41c1-aeea-28dc93cb4513_720x.jpg?v=1740405884"
+                        class="product-image" alt="Lay's Crispy Chicken Drumstick">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Crispy Chicken Drumstick (34g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Crispy Chicken Drumstick</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 34g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Crispy Chicken Drumstick (34g)', '28500', 'https://specialtyfoodsource.com/cdn/shop/files/Lay_sCrispyFriedChicken_Taiwan_287baff5-e716-41c1-aeea-28dc93cb4513_720x.jpg?v=1740405884', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 25 - Lay's Grilled Ribs -->
+                <div class="product-card" data-brand="lays" data-price="28500">
+                    <img src="https://down-tw.img.susercontent.com/file/87957748a9fe16e2f33526629999dde5"
+                        class="product-image" alt="Lay's Grilled Ribs">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Grilled Ribs (34g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Grilled Ribs</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 34g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Grilled Ribs (34g)', '28500', 'https://down-tw.img.susercontent.com/file/87957748a9fe16e2f33526629999dde5', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 26 - Lay's Teriyaki Grilled Chicken Skewers -->
+                <div class="product-card" data-brand="lays" data-price="28500">
+                    <img src="https://myship.7-11.com.tw/i/cgdm/GM2407280401194/2407280306414545.jpg"
+                        class="product-image" alt="Lay's Teriyaki Grilled Chicken Skewers">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Teriyaki Grilled Chicken Skewers (34g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Teriyaki Grilled Chicken Skewers</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 34g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Teriyaki Grilled Chicken Skewers (34g)', '28500', 'https://myship.7-11.com.tw/i/cgdm/GM2407280401194/2407280306414545.jpg', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 27 - Lay's Kobe Beef -->
+                <div class="product-card" data-brand="lays" data-price="28500">
+                    <img src="https://images-cdn.ubuy.co.in/655d5bf1d26db828bf35a63f-lays-potato-chips-exotic-flavor-snack.jpg"
+                        class="product-image" alt="Lay's Kobe Beef">
+                    <div class="product-info">
+                        <div class="product-title">Lay's Kobe Beef (34g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Kobe Beef</div>
+                            <div class="desc-item"><span>Brand:</span> Lay's</div>
+                            <div class="desc-item"><span>Weight:</span> 34g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Lay\'s Kobe Beef (34g)', '28500', 'https://images-cdn.ubuy.co.in/655d5bf1d26db828bf35a63f-lays-potato-chips-exotic-flavor-snack.jpg', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+
+                <!-- Section: Other Snacks -->
+                <div style="grid-column: 1 / -1; margin: 2rem 0 1rem 0;" data-brand="other">
+                    <h2 class="section-title">
+                        Other Snacks
+                    </h2>
+                </div>
+                <!-- 1 - Doritos American Spicy Chicken Wings -->
+                <div class="product-card" data-brand="other" data-price="44500">
+                    <img src="https://cdn.store-assets.com/s/1369192/i/97479672.png" class="product-image"
+                        alt="Doritos American Spicy Chicken Wings">
+                    <div class="product-info">
+                        <div class="product-title">Doritos American Spicy Chicken Wings (68g)</div>
+                        <div class="product-price">Rp 44,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> American Spicy Chicken Wings</div>
+                            <div class="desc-item"><span>Brand:</span> Doritos</div>
+                            <div class="desc-item"><span>Weight:</span> 68g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Doritos American Spicy Chicken Wings (68g)', '44500', 'https://cdn.store-assets.com/s/1369192/i/97479672.png', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 2 - Doritos Flamin Hot -->
+                <div class="product-card" data-brand="other" data-price="44500">
+                    <img src="https://down-tw.img.susercontent.com/file/tw-11134207-7rbk8-m8n7dnignjs752"
+                        class="product-image" alt="Doritos Flamin Hot">
+                    <div class="product-info">
+                        <div class="product-title">Doritos Flamin Hot (68g)</div>
+                        <div class="product-price">Rp 44,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Flamin Hot</div>
+                            <div class="desc-item"><span>Brand:</span> Doritos</div>
+                            <div class="desc-item"><span>Weight:</span> 68g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Doritos Flamin Hot (68g)', '44500', 'https://down-tw.img.susercontent.com/file/tw-11134207-7rbk8-m8n7dnignjs752', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 3 - Doritos Nacho's Cheese -->
+                <div class="product-card" data-brand="other" data-price="44500">
+                    <img src="https://shoplineimg.com/61662e5adfa523003edf1433/626b96153eb7d5000118664f/800x.jpg"
+                        class="product-image" alt="Doritos Nacho's Cheese">
+                    <div class="product-info">
+                        <div class="product-title">Doritos Nacho's Cheese (68g)</div>
+                        <div class="product-price">Rp 44,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Nacho's Cheese</div>
+                            <div class="desc-item"><span>Brand:</span> Doritos</div>
+                            <div class="desc-item"><span>Weight:</span> 68g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Doritos Nachos Cheese (68g)', '44500', 'https://shoplineimg.com/61662e5adfa523003edf1433/626b96153eb7d5000118664f/800x.jpg', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 4 - Doritos Garlic Shrimp -->
+                <div class="product-card" data-brand="other" data-price="44500">
+                    <img src="https://img.yec.tw/zp/MerchandiseImages/bbd67fda77-Gd-9324198.jpg" class="product-image"
+                        alt="Doritos Garlic Shrimp">
+                    <div class="product-info">
+                        <div class="product-title">Doritos Garlic Shrimp (68g)</div>
+                        <div class="product-price">Rp 44,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Garlic Shrimp</div>
+                            <div class="desc-item"><span>Brand:</span> Doritos</div>
+                            <div class="desc-item"><span>Weight:</span> 68g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Doritos Garlic Shrimp (68g)', '44500', 'https://img.yec.tw/zp/MerchandiseImages/bbd67fda77-Gd-9324198.jpg', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 5 - Doritos Sichuan Peppercorn Chicken -->
+                <div class="product-card" data-brand="other" data-price="44500">
+                    <img src="https://b2eimg.pxec.com.tw/00232388/b62722157b504990867fd17d5ab3ea1f.jpg"
+                        class="product-image" alt="Doritos Sichuan Peppercorn Chicken">
+                    <div class="product-info">
+                        <div class="product-title">Doritos Sichuan Peppercorn Chicken (68g)</div>
+                        <div class="product-price">Rp 44,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Sichuan Peppercorn Chicken</div>
+                            <div class="desc-item"><span>Brand:</span> Doritos</div>
+                            <div class="desc-item"><span>Weight:</span> 68g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Doritos Sichuan Peppercorn Chicken (68g)', '44500', 'https://b2eimg.pxec.com.tw/00232388/b62722157b504990867fd17d5ab3ea1f.jpg', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+
+                <!-- 5 - Cheetos Homestyle Cheese -->
+                <div class="product-card" data-brand="other" data-price="28500">
+                    <img src="https://down-tw.img.susercontent.com/file/9ea02fbe2046075d12b7b60f3b31262e.webp"
+                        class="product-image" alt="Cheetos Homestyle Cheese">
+                    <div class="product-info">
+                        <div class="product-title">Cheetos Homestyle Cheese (46g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Homestyle Cheese</div>
+                            <div class="desc-item"><span>Brand:</span> Cheetos</div>
+                            <div class="desc-item"><span>Weight:</span> 46g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Cheetos Homestyle Cheese (46g)', '28500', 'https://down-tw.img.susercontent.com/file/9ea02fbe2046075d12b7b60f3b31262e.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+                <!-- 6 - Cheetos 2× Extra Cheese -->
+                <div class="product-card" data-brand="other" data-price="28500">
+                    <img src="https://down-tw.img.susercontent.com/file/42d9463d0c9f54d10a3a9335831fb4c5.webp"
+                        class="product-image" alt="Cheetos 2× Extra Cheese">
+                    <div class="product-info">
+                        <div class="product-title">Cheetos 2× Extra Cheese (46g)</div>
+                        <div class="product-price">Rp 28,500</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> 2× Extra Cheese</div>
+                            <div class="desc-item"><span>Brand:</span> Cheetos</div>
+                            <div class="desc-item"><span>Weight:</span> 46g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Cheetos 2× Extra Cheese (46g)', '28500', 'https://down-tw.img.susercontent.com/file/42d9463d0c9f54d10a3a9335831fb4c5.webp', 'Snacks')">Add
+                            to Cart</button>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <footer style="background-color: #222; color: #fff; padding: 2rem; text-align: center; margin-top: 2rem;">
+        <p>Contact: +62 85183005811</p>
+        <p>&copy; 2026 Jastip Aaron. All rights reserved.</p>
+    </footer>
+
+    <!-- Hamburger Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-sidebar">
+            <div class="menu-header">
+                <div class="menu-brand">JASTIP AARON</div>
+                <span style="cursor:pointer; font-size:2rem;" id="close-menu">&times;</span>
+            </div>
+            <div class="menu-links">
+
+                <a href="#" class="menu-link mobile-cart-link" onclick="openCart(); closeMenu(); return false;">
+                    Cart <span id="mobile-menu-cart-count">(0)</span>
+                </a>
+                <a href="coffee.html" class="menu-link">Beans</a>
+                <a href="dripper.html" class="menu-link">Drippers</a>
+                <a href="snacks.html" class="menu-link">Snacks</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterItems = document.querySelectorAll('.filter-item');
+            const productCards = document.querySelectorAll('.product-card');
+            const productGrid = document.getElementById('product-grid');
+            const sectionHeaders = productGrid.querySelectorAll('div[data-brand]'); // Get section headers
+            const sortSelect = document.getElementById('sort-select');
+
+            // 1. FILTER FUNCTIONALITY
+            filterItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Update active state
+                    filterItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+
+                    const filterValue = item.getAttribute('data-filter');
+
+                    // Filter products
+                    productCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-brand') === filterValue) {
+                            card.style.display = 'block';
+                            // Reset animation
+                            card.classList.remove('fade-in');
+                            void card.offsetWidth; // Trigger reflow
+                            card.classList.add('fade-in');
+                        } else {
+                            card.style.display = 'none';
+                            card.classList.remove('fade-in');
+                        }
+                    });
+
+                    // Filter section headers
+                    sectionHeaders.forEach(header => {
+                        if (filterValue === 'all' || header.getAttribute('data-brand') === filterValue) {
+                            header.style.display = 'block';
+                        } else {
+                            header.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 2. SORT FUNCTIONALITY
+            sortSelect.addEventListener('change', () => {
+                const sortValue = sortSelect.value;
+                const cardsArray = Array.from(productCards);
+
+                // Hide section headers when sorting (except default)
+                if (sortValue !== 'default') {
+                    sectionHeaders.forEach(header => header.style.display = 'none');
+                } else {
+                    // Restore headers based on current filter
+                    const activeFilter = document.querySelector('.filter-item.active').getAttribute('data-filter');
+                    sectionHeaders.forEach(header => {
+                        if (activeFilter === 'all' || header.getAttribute('data-brand') === activeFilter) {
+                            header.style.display = 'block';
+                        }
+                    });
+                }
+
+                // Sort cards
+                if (sortValue === 'price-low') {
+                    cardsArray.sort((a, b) => parseInt(a.dataset.price.replace(/[^\d]/g, '')) - parseInt(b.dataset.price.replace(/[^\d]/g, '')));
+                } else if (sortValue === 'price-high') {
+                    cardsArray.sort((a, b) => parseInt(b.dataset.price.replace(/[^\d]/g, '')) - parseInt(a.dataset.price.replace(/[^\d]/g, '')));
+                } else {
+                    window.location.reload();
+                    return;
+                }
+
+                // Re-append sorted cards in order
+                cardsArray.forEach(card => productGrid.appendChild(card));
+            });
+        });
+    </script>
+</body>
+
+</html>
+
+</html>

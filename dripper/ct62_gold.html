@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CT62 Coffee Dripper | GOLD | Jastip Aaron</title>
+    <link rel="stylesheet" href="../styles/main.css">
+</head>
+
+<body>
+    <div id="transition-curtain"></div>
+    <nav class="navbar">
+        <div class="hamburger-icon" id="hamburger-icon">
+            &#9776;
+        </div>
+        <a href="../FrontPage.html" class="brand">Jastip Aaron</a>
+        <div class="nav-links">
+            <a href="../coffee.html" class="nav-link">Beans</a>
+            <a href="../dripper.html" class="nav-link">Drippers</a>
+            <a href="../snacks.html" class="nav-link">Snacks</a>
+        </div>
+        <div class="cart-icon" id="cart-icon">
+            CART
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <span style="cursor:pointer" id="close-cart">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-footer">
+                <div class="total-price">
+                    <span>Total</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button id="checkout-btn" class="add-to-cart-btn" onclick="window.location.href='../payment.html'">Send
+                    Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail -->
+    <div class="container product-detail">
+        <div>
+            <img src="https://shoplineimg.com/554c75fa039055280b00006e/6695fd9216da2f001367b8d4/800x.webp?source_format=jpg"
+                class="detail-image" id="main-product-image" alt="CT62 Dripper GOLD"
+                style="background:#f9f9f9; min-height:500px; object-fit:contain;">
+        </div>
+
+        <div class="detail-info">
+            <h1>CT62 Coffee Dripper | GOLD</h1>
+            <p style="margin-bottom: 2rem; color: #666; line-height: 1.6;">
+                The CT62 Gold Edition. A premium, limited edition finish for the ultimate brewing experience.
+            </p>
+
+            <div class="price-tag">Rp 2,120,000</div>
+
+            <button id="add-to-cart-btn" class="add-to-cart-btn" data-id="CT62-GOLD"
+                data-name="CT62 Coffee Dripper | GOLD" data-price="2120000"
+                data-image="https://shoplineimg.com/554c75fa039055280b00006e/6695fd9216da2f001367b8d4/800x.webp?source_format=jpg">
+                Add to Cart
+            </button>
+        </div>
+    </div>
+
+    <footer>
+
+    </footer>
+
+    <!-- Hamburger Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-sidebar">
+            <div class="menu-header">
+                <div class="menu-brand">JASTIP AARON</div>
+                <span style="cursor:pointer; font-size:2rem;" id="close-menu">&times;</span>
+            </div>
+            <div class="menu-links">
+                <a href="#" class="menu-link mobile-cart-link" onclick="openCart(); closeMenu(); return false;">
+                    Cart <span id="mobile-menu-cart-count">(0)</span>
+                </a>
+                <a href="../coffee.html" class="menu-link">Beans</a>
+                <a href="../dripper.html" class="menu-link">Drippers</a>
+                <a href="../snacks.html" class="menu-link">Snacks</a>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .detail-image {
+            transition: opacity 0.5s ease-in-out;
+            opacity: 1;
+        }
+
+        .detail-image.fade-out {
+            opacity: 0;
+        }
+    </style>
+    <script src="../js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainImage = document.getElementById('main-product-image');
+            const images = [
+                "https://shoplineimg.com/554c75fa039055280b00006e/6695fd9216da2f001367b8d4/800x.webp?source_format=jpg",
+                "https://shoplineimg.com/554c75fa039055280b00006e/6695fd89d1c09c001042ac75/2000x.webp?source_format=jpg"
+            ];
+            let currentIndex = 0;
+
+            setInterval(() => {
+                // 1. Fade Out
+                mainImage.classList.add('fade-out');
+
+                // 2. Change Image after fade out completes
+                setTimeout(() => {
+                    currentIndex = (currentIndex + 1) % images.length;
+                    mainImage.src = images[currentIndex];
+
+                    // 3. Fade In (small delay to ensure src is applied)
+                    requestAnimationFrame(() => {
+                        mainImage.classList.remove('fade-out');
+                    });
+                }, 500); // Match CSS transition duration
+            }, 5000); // 5 Seconds Interval
+        });
+    </script>
+</body>
+
+</html>

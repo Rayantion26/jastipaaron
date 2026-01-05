@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beans | Jastip Aaron</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:wght@700&family=Montserrat:wght@900&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Layout for Sidebar + Grid */
+        .content-wrapper {
+            display: flex;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            gap: 2rem;
+        }
+
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-section {
+            margin-bottom: 2rem;
+        }
+
+        .sidebar-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+
+        .filter-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .filter-item {
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .filter-item:hover,
+        .filter-item.active {
+            background-color: #f0f0f0;
+            font-weight: bold;
+        }
+
+        .main-content {
+            flex-grow: 1;
+        }
+
+        .controls-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+
+        .sort-select {
+            padding: 0.5rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Product Grid adjustments if needed, otherwise reuses styles/main.css */
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="transition-curtain"></div>
+    <nav class="navbar">
+        <div class="hamburger-icon" id="hamburger-icon">
+            &#9776;
+        </div>
+        <a href="FrontPage.html" class="brand">Jastip Aaron</a>
+        <div class="nav-links">
+            <a href="coffee.html" class="nav-link" style="opacity:1;">Beans</a>
+            <a href="dripper.html" class="nav-link">Drippers</a>
+            <a href="snacks.html" class="nav-link">Snacks</a>
+        </div>
+        <div class="cart-icon" id="cart-icon">
+            CART
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <span style="cursor:pointer" id="close-cart">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-footer">
+                <div class="total-price">
+                    <span>Total</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button id="checkout-btn" class="add-to-cart-btn" onclick="window.location.href='payment.html'">Send
+                    Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page Header -->
+    <div class="container category-header">
+        <h1 class="category-title">Beans</h1>
+        <p>Curated selections from around the world.</p>
+    </div>
+
+    <div class="content-wrapper">
+        <!-- Sidebar Filter -->
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <h3 class="sidebar-title">Packaging</h3>
+                <ul class="filter-list" id="packaging-filter">
+                    <li class="filter-item active" data-filter="all">All</li>
+                    <li class="filter-item" data-filter="aluminium">Aluminium (Bottle)</li>
+                    <li class="filter-item" data-filter="dripbag">Drip Bags</li>
+                    <li class="filter-item" data-filter="pods">Pods</li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="controls-bar">
+                <label for="sort-select" style="margin-right:0.5rem;">Sort by:</label>
+                <select id="sort-select" class="sort-select">
+                    <option value="default">Featured</option>
+                    <option value="price-low">Price: Low to High</option>
+                    <option value="price-high">Price: High to Low</option>
+                </select>
+            </div>
+
+            <div class="product-grid" id="product-grid">
+
+
+                <!-- CENTRIFUGE TUBE (PODS) SECTION -->
+                <div style="grid-column: 1 / -1; margin: 2rem 0 1rem 0;" data-packaging="pods">
+                    <h2 class="section-title">
+                        🧪 Centrifuge Tube (Pods) - 20g
+                    </h2>
+                    <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Ultra-exclusive single-dose
+                        tubes
+                        for the highest-end Geishas</p>
+                </div>
+
+
+                <!-- Single Origin Pods Subsection -->
+                <div style="grid-column: 1 / -1; margin: 1.5rem 0 0.75rem 0;" data-packaging="pods">
+                    <h3
+                        style="font-size: 1.3rem; font-weight: 500; color: #34495e; border-left: 4px solid #3498db; padding-left: 0.75rem;">
+                        Single Origin
+                    </h3>
+                </div>
+
+                <!-- Single Origins (Expanded) -->
+                <div class="product-card" data-category="single-origin" data-packaging="pods" data-price="1580000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/693a76c3bdc4705282f2daef/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Panama Boquete LONGBOARD COFFEE Misty Mountain Farm Geisha Lot.33 Washed">
+                    <div class="product-info">
+                        <div class="product-title">Panama Boquete LONGBOARD COFFEE Misty Mountain Farm Geisha Lot.33
+                            Washed (20g)</div>
+                        <div class="product-price">Rp 1,580,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Peach、Yellow Lemon、Orange Blossom、Lemon
+                                Glaze、Jasmine</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Weight:</span> 20g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1550-1800 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Boquete LONGBOARD COFFEE Misty Mountain Farm Geisha Lot.33 Washed (20g)', '1580000', 'https://shoplineimg.com/554c75fa039055280b00006e/693a76c3bdc4705282f2daef/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- ALUMINUM BOTTLES SECTION -->
+                <div style="grid-column: 1 / -1; margin: 3rem 0 1rem 0;" data-packaging="aluminium">
+                    <h2 class="section-title">
+                        🍾 Aluminum Bottles - 113g
+                    </h2>
+                    <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Signature pressure-sealed
+                        bottles
+                        for premium single-origin beans</p>
+                </div>
+
+                <!-- Single Origin Bottles Subsection -->
+                <div style="grid-column: 1 / -1; margin: 1.5rem 0 0.75rem 0;" data-packaging="aluminium">
+                    <h3
+                        style="font-size: 1.3rem; font-weight: 500; color: #34495e; border-left: 4px solid #3498db; padding-left: 0.75rem;">
+                        Single Origin
+                    </h3>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="5900000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d610a6b70024fbc627/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Panama Boquete LONGBOARD COFFEE Windy Ridge Farm Geisha Lot.10 Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Boquete LONGBOARD COFFEE Windy Ridge Farm Geisha Lot.10
+                            Natural (113g)</div>
+                        <div class="product-price">Rp 5,900,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Tangerine, Apricot Jelly Candy, Fuji Apple,
+                                Hibiscus, Orange Blossom</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 1600 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Boquete LONGBOARD COFFEE Windy Ridge Farm Geisha Lot.10 Natural (113g)', '5900000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d610a6b70024fbc627/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="600600">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d001a4f1aa0/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Ethiopia Sidama Bensa Alo Single Variety 74158 Washed【JH LA FLOR series】">
+                    <div class="product-info">
+                        <div class="product-title">Ethiopia Sidama Bensa Alo Single Variety 74158 Washed【JH LA FLOR
+                            series】 (113g)</div>
+                        <div class="product-price">Rp 600,600</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Jasmine, Lemon Peel, Bergamot, White Peach,
+                                Floral Tea</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Sidama Bensa</div>
+                            <div class="desc-item"><span>Variety:</span> 74158</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 2000-2400 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Ethiopia Sidama Bensa Alo Single Variety 74158 Washed【JH LA FLOR series】 (113g)', '600600', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d001a4f1aa0/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="415000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d6647c68001a4827ed/800x.webp?source_format=jpg"
+                        class="product-image" alt="Ethiopia Sidama Bona G1 Natural【JH LA MIEL series】">
+                    <div class="product-info">
+                        <div class="product-title">Ethiopia Sidama Bona G1 Natural【JH LA MIEL series】 (113g)</div>
+                        <div class="product-price">Rp 415,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Blueberry, Strawberry Jam, Cocoa, Honey, Red
+                                Grape</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Region:</span> Sidama Bona</div>
+                            <div class="desc-item"><span>Variety:</span> Local Landrace</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 1900-2200 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Ethiopia Sidama Bona G1 Natural【JH LA MIEL series】 (113g)', '415000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d6647c68001a4827ed/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="1015000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d610a6b70024fbc627/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Taiwan Chiayi Alishan Tefuye HUNTER STORY STUDIO Honey【COE Auction 2025】">
+                    <div class="product-info">
+                        <div class="product-title">Taiwan Chiayi Alishan Tefuye HUNTER STORY STUDIO Honey【COE
+                            Auction
+                            2025】</div>
+                        <div class="product-price">Rp 1,015,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Osmanthus, Honey, Peach, Oolong Tea, Brown
+                                Sugar
+                            </div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Region:</span> Alishan</div>
+                            <div class="desc-item"><span>Variety:</span> Typica & Bourbon</div>
+                            <div class="desc-item"><span>Process:</span> Honey</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 1200-1400 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Taiwan Chiayi Alishan Tefuye HUNTER STORY STUDIO Honey【COE Auction 2025】', '1015000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d610a6b70024fbc627/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="2385000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d610a6b70024fbc627/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Boquete Hacienda La Esmeralda Plot.LEON Geisha Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Boquete Hacienda La Esmeralda Plot.LEON Geisha Natural
+                            (113g)</div>
+                        <div class="product-price">Rp 2,385,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Cranberry, Elderflower, Orange Blossom, Sun
+                                Dried Rose Petals, Tangerine</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 1600-1800 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Boquete Hacienda La Esmeralda Plot.LEON Geisha Natural (113g)', '2385000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d610a6b70024fbc627/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="1890000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Morgan Estate Geisha CM Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Morgan Estate Geisha CM Natural (113g)</div>
+                        <div class="product-price">Rp 1,890,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Purple Floral, Grape, Tropical Fruit, Winey
+                            </div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Chiriqui</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> CM Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 1700-1850m</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Morgan Estate Geisha CM Natural (113g)', '1890000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="1215000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Altieri Estate Geisha Washed">
+                    <div class="product-info">
+                        <div class="product-title">Panama Altieri Estate Geisha Washed (113g)</div>
+                        <div class="product-price">Rp 1,215,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Jasmine, Lemon, Bergamot, Tea-like</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 1800m</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Altieri Estate Geisha Washed (113g)', '1215000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="855000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d640020a514830b0dc/800x.webp?source_format=jpg"
+                        class="product-image" alt="Alishan Tefuye Yangui Farm Geisha (COE 2025)">
+                    <div class="product-info">
+                        <div class="product-title">Alishan Tefuye Yangui Farm Geisha (113g)</div>
+                        <div class="product-price">Rp 855,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Floral, Oolong, Honey, Stone Fruit</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Alishan</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 1200m</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Alishan Tefuye Yangui Farm Geisha (113g)', '855000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d640020a514830b0dc/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="775000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d61c353d00141f5634/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Ponderosa Estate Sidra Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Ponderosa Estate Sidra Natural (113g)</div>
+                        <div class="product-price">Rp 775,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Tropical Fruit, Pineapple, Mango, Complex
+                            </div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Sidra</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 1650m</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Ponderosa Estate Sidra Natural (113g)', '775000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d61c353d00141f5634/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="575000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d640020a514830b0dc/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Mil Cumbres Maracaturra Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Mil Cumbres Maracaturra Natural (113g)</div>
+                        <div class="product-price">Rp 575,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Dark Berries, Winey, Chocolate, Body</div>
+                            <div class="desc-item"><span>Roast:</span> Medium Light</div>
+                            <div class="desc-item"><span>Region:</span> Cordillera</div>
+                            <div class="desc-item"><span>Variety:</span> Maracaturra</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Altitude:</span> 1700m</div>
+                        </div>
+
+                        <!-- Add to Cart Button (absolute positioned bottom right) -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Mil Cumbres Maracaturra Natural (113g)', '575000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d640020a514830b0dc/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="486200">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d6647c68001a4827ed/800x.webp?source_format=jpg"
+                        class="product-image" alt="Guatemala Huehuetenango El Injerto Pacamara Washed">
+                    <div class="product-info">
+                        <div class="product-title">Guatemala Huehuetenango El Injerto Pacamara Washed (113g)</div>
+                        <div class="product-price">Rp 486,200</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Pink Guava、Tangerine、White Peach、White
+                                Pomelo、Calpis Sour</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Huehuetenango</div>
+                            <div class="desc-item"><span>Variety:</span> Pacamara</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Altitude:</span> 1500-1800 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Guatemala Huehuetenango El Injerto Pacamara Washed (113g)', '486200', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d6647c68001a4827ed/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="357500">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d6aed4e600200e1773/800x.webp?source_format=jpg"
+                        class="product-image" alt="Guatemala Huehuetenango El Injerto Bourbon Natural">
+                    <div class="product-info">
+                        <div class="product-title">Guatemala Huehuetenango El Injerto Bourbon Natural (113g)</div>
+                        <div class="product-price">Rp 357,500</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Tngerine、Pluot、Almonds、Hazelnut</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Huehuetenango</div>
+                            <div class="desc-item"><span>Variety:</span> Bourbon</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Altitude:</span> 1500-1800 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Guatemala Huehuetenango El Injerto Bourbon Natural (113g)', '357500', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d6aed4e600200e1773/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="470000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d61c353d00141f5634/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Chiriqui CORPACHI COFFEE Catuai Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Chiriqui CORPACHI COFFEE Catuai Natural (113g)</div>
+                        <div class="product-price">Rp 470,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Japanese Apricot、Dried
+                                cranberries、Melon、Walnut
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Chiriqui</div>
+                            <div class="desc-item"><span>Variety:</span> Catuai</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Altitude:</span> 1450 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Chiriqui CORPACHI COFFEE Catuai Natural (113g)', '470000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d61c353d00141f5634/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="640000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d6753f73001dfb245b/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Taiwan Chiayi Alishan Leye Zou-Zhou-Yuan Geisha Washed 【JH Special Processing ADVANCED -LA MIEL series】">
+                    <div class="product-info">
+                        <div class="product-title">Taiwan Chiayi Alishan Leye Zou-Zhou-Yuan Geisha Washed 【JH
+                            Special
+                            Processing ADVANCED -LA MIEL series】 (113g)</div>
+                        <div class="product-price">Rp 640,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Yellow Peach、Orange Blossom、Jin Xuan Oolong
+                                Tea、Golden Sugar、Tangerine</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Taiwan</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Altitude:</span> 1350 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Taiwan Chiayi Alishan Leye Zou-Zhou-Yuan Geisha Washed 【JH Special Processing ADVANCED -LA MIEL series】 (113g)', '640000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d6753f73001dfb245b/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="670000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d640020a514830b0dc/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Ethiopia Sidama Bensa Alo Single Variety 74158 Natural 【JH Special Processing ADVANCED -LA FLOR series】">
+                    <div class="product-info">
+                        <div class="product-title">Ethiopia Sidama Bensa Alo Single Variety 74158 Natural 【JH
+                            Special
+                            Processing ADVANCED -LA FLOR series】 (113g)</div>
+                        <div class="product-price">Rp 670,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Mango、Violets、Sungold
+                                Kiwifruit、Raspberry、Pineapple、Mangosteen</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Sidama</div>
+                            <div class="desc-item"><span>Variety:</span> 74158</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Altitude:</span> 2450 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Ethiopia Sidama Bensa Alo Single Variety 74158 Natural 【JH Special Processing ADVANCED -LA FLOR series】 (113g)', '670000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d640020a514830b0dc/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="2385000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Panama Boquete Hacienda La Esmeralda Plot.LINO Geisha Cool Fermented Washed">
+                    <div class="product-info">
+                        <div class="product-title">Panama Boquete Hacienda La Esmeralda Plot.LINO Geisha Cool
+                            Fermented
+                            Washed (113g)</div>
+                        <div class="product-price">Rp 2,385,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Ginger Lily、Jasmine、Lime、Rose、Blood Orange
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Almost Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Altitude:</span> 1674 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Boquete Hacienda La Esmeralda Plot.LINO Geisha Cool Fermented Washed (113g)', '2385000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="421850">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d610a6b70024fbc627/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Chiriqui Finca El Pergamino Bourbon Washed">
+                    <div class="product-info">
+                        <div class="product-title">Panama Chiriqui Finca El Pergamino Bourbon Washed (113g)</div>
+                        <div class="product-price">Rp 421,850</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Citrus Medica、Honey Grapefruit
+                                Tea、Nectarine、Bergamot</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Chiriqui</div>
+                            <div class="desc-item"><span>Variety:</span> Bourbon</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Altitude:</span> 1800 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Chiriqui Finca El Pergamino Bourbon Washed (113g)', '421850', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d610a6b70024fbc627/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="445000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d61e5ae0001a257ba8/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Chiriqui Mil Cumbres Pacamara Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Chiriqui Mil Cumbres Pacamara Natural (113g)</div>
+                        <div class="product-price">Rp 445.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Passion Fruit、Pink Guava、Apricot、Candied
+                                Cranberries、Melon</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Chiriqui</div>
+                            <div class="desc-item"><span>Variety:</span> Pacamara</div>
+                            <div class="desc-item"><span>Altitude:</span> 1600-2000 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Chiriqui Mil Cumbres Pacamara Natural (113g)', '445000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d61e5ae0001a257ba8/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="1086800">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Panama Boquete Altieri Estate Geisha 48hr Natural 【JH Special Processing ADVANCED -LA FLOR series】">
+                    <div class="product-info">
+                        <div class="product-title">Panama Boquete Altieri Estate Geisha 48hr Natural 【JH Special
+                            Processing ADVANCED -LA FLOR series】 (113g)</div>
+                        <div class="product-price">Rp 1,086,800</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Violets、Apricot、Passion
+                                Fruit、Mangosteen、Orin
+                                Apple</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Altitude:</span> 1800 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Boquete Altieri Estate Geisha 48hr Natural 【JH Special Processing ADVANCED -LA FLOR series】 (113g)', '1086800', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="1086800">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d640020a514830b0dc/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Panama Boquete Altieri Estate Geisha 72hr Natural 【JH Special Processing ADVANCED -LA FLOR series】">
+                    <div class="product-info">
+                        <div class="product-title">Panama Boquete Altieri Estate Geisha 72hr Natural 【JH Special
+                            Processing ADVANCED -LA FLOR series】 (113g)</div>
+                        <div class="product-price">Rp 1,086,800</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Dried Pineapple、Dried Mango</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Altitude:</span> 1800 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Boquete Altieri Estate Geisha 72hr Natural 【JH Special Processing ADVANCED -LA FLOR series】 (113g)', '1086800', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d640020a514830b0dc/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="1095000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Panama Boquete LAMASTUS Family Elida Estate VUELTA Geisha DRD Washed【2024 BOP same growing area】">
+                    <div class="product-info">
+                        <div class="product-title">Panama Boquete LAMASTUS Family Elida Estate VUELTA Geisha DRD
+                            Washed【2024 BOP same growing area】 (113g)</div>
+                        <div class="product-price">Rp 1.095.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Jasmine、Yellow Lemon、Lemon Aiyu Jelly</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Dark Room Dry Washed</div>
+                            <div class="desc-item"><span>Altitude:</span> 1950 Mater</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Boquete LAMASTUS Family Elida Estate VUELTA Geisha DRD Washed【2024 BOP same growing area】 (113g)', '1095000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d00144f1552/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="1095000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d001a4f1aa0/800x.webp?source_format=jpg"
+                        class="product-image"
+                        alt="Panama Boquete LAMASTUS Family Elida Estate VUELTA Geisha DRD Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Boquete LAMASTUS Family Elida Estate VUELTA Geisha DRD
+                            Natural
+                            (113g)</div>
+                        <div class="product-price">Rp 1.095.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Hibiscus、Pineapple、Apple Pie、Apricot</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Dark Room Dry Natural</div>
+                            <div class="desc-item"><span>Altitude:</span> 1950 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Boquete LAMASTUS Family Elida Estate VUELTA Geisha DRD Natural (113g)', '1095000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d618074d001a4f1aa0/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="420000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d6753f73001dfb245b/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Chiriqui Mil Cumbres San Ramon Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Chiriqui Mil Cumbres San Ramon Natural (113g)</div>
+                        <div class="product-price">Rp 420.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Pineapple、Apricot、Hibiscus、Passion Fruit
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Chiriqui</div>
+                            <div class="desc-item"><span>Variety:</span> San ramon</div>
+                            <div class="desc-item"><span>Altitude:</span> 1600-2000 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Chiriqui Mil Cumbres San Ramon Natural (113g)', '420000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d6753f73001dfb245b/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="1325000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d6753f73001dfb245b/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Chiriqui Finca El Pergamino Geisha Washed">
+                    <div class="product-info">
+                        <div class="product-title">Panama Chiriqui Finca El Pergamino Geisha Washed (113g)</div>
+                        <div class="product-price">Rp 1.325.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Orange Blossom、Spring Honey、Assam Milk
+                                Tea、Jasmine</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Chiriqui</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Altitude:</span> 1800 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Chiriqui Finca El Pergamino Geisha Washed (113g)', '1325000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d6753f73001dfb245b/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="aluminium" data-price="335000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d6e5c6b0001429b5e0/800x.webp?source_format=jpg"
+                        class="product-image" alt="Panama Boquete LAMASTUS Family Elida Estate Catuai ASD Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Boquete LAMASTUS Family Elida Estate Catuai ASD Natural
+                            (113g)
+                        </div>
+                        <div class="product-price">Rp 335.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Pluot、Black Currant</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 113g In Aluminum Bottle</div>
+                            <div class="desc-item"><span>Region:</span> Boquete</div>
+                            <div class="desc-item"><span>Variety:</span> Catuai</div>
+                            <div class="desc-item"><span>Process:</span> ASD Natural</div>
+                            <div class="desc-item"><span>Altitude:</span> 1700-1800 Meter</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Boquete LAMASTUS Family Elida Estate Catuai ASD Natural (113g)', '335000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d6e5c6b0001429b5e0/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DRIP BAGS SECTION -->
+                <div style="grid-column: 1 / -1; margin: 3rem 0 1rem 0;" data-packaging="dripbag">
+                    <h2
+                        style="font-size: 1.8rem; font-family: 'Montserrat', sans-serif; font-weight: 900; text-transform: uppercase; border-bottom: 3px solid #000; padding-bottom: 0.5rem; color: #000;">
+                        📦 Drip Bags - 227±5g
+                    </h2>
+                    <p style="color: #666; margin-top: 0.5rem; font-size: 0.95rem;">Individual sachets with
+                        clip-style
+                        packaging</p>
+                </div>
+
+                <!-- Single Origin Drip Bags Subsection -->
+                <div style="grid-column: 1 / -1; margin: 1.5rem 0 0.75rem 0;" data-packaging="dripbag">
+                    <h3
+                        style="font-size: 1.3rem; font-weight: 500; color: #34495e; border-left: 4px solid #3498db; padding-left: 0.75rem;">
+                        Single Origin
+                    </h3>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="345000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2cb709c51b8eb8146/800x.webp?source_format=png"
+                        class="product-image" alt="Brazil Minas Gerais Daterra Red Catuai">
+                    <div class="product-info">
+                        <div class="product-title">Brazil Minas Gerais Daterra Red Catuai (227±5g)</div>
+                        <div class="product-price">Rp 345,000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Nutty, Chocolate, Caramel, Smooth</div>
+                            <div class="desc-item"><span>Roast:</span> Medium</div>
+                            <div class="desc-item"><span>Region:</span> Minas Gerais</div>
+                            <div class="desc-item"><span>Variety:</span> Red Catuai</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1100m</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Brazil Minas Gerais Daterra Red Catuai (227±5g)', '345000', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2cb709c51b8eb8146/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="386100">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png"
+                        class="product-image" alt="Guatemala Cobán Finca Valmar Washed">
+                    <div class="product-info">
+                        <div class="product-title">Guatemala Cobán Finca Valmar Washed (227±5g)</div>
+                        <div class="product-price">Rp 386,100</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Yellow Peach、Pluot、Hazelnut、Butter Nuts
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Plus</div>
+                            <div class="desc-item"><span>Roast:</span> Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Region:</span> Cobán</div>
+                            <div class="desc-item"><span>Variety:</span> Caturra、Catuai</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Altitude:</span> 1500-1600 Meter</div>
+                        </div>
+
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Guatemala Cobán Finca Valmar Washed (227±5g)', '386100', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="665000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a3480c75002960bc98/800x.webp?source_format=png"
+                        class="product-image" alt="Ethiopia Yirgacheffe Halo Bariti G1">
+                    <div class="product-info">
+                        <div class="product-title">Ethiopia Yirgacheffe Halo Bariti G1 (227±5g)</div>
+                        <div class="product-price">Rp 665,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Berries, Floral, Citrus, Clean</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Yirgacheffe</div>
+                            <div class="desc-item"><span>Variety:</span> Heirloom</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 2000m</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Ethiopia Yirgacheffe Halo Bariti G1 (227±5g)', '665000', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a3480c75002960bc98/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="600000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a3480c75002960bc98/800x.webp?source_format=png"
+                        class="product-image" alt="Ethiopia Guji Hambella Bella Lulo G1">
+                    <div class="product-info">
+                        <div class="product-title">Ethiopia Guji Hambella Bella Lulo G1 (227±5g)</div>
+                        <div class="product-price">Rp 600,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Floral, Black Tea, Lemon, Peach</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Guji</div>
+                            <div class="desc-item"><span>Variety:</span> Heirloom</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 2100m</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Ethiopia Guji Hambella Bella Lulo G1 (227±5g)', '600000', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a3480c75002960bc98/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="560000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a3480c75002960bc98/800x.webp?source_format=png"
+                        class="product-image" alt="Kenya Nyeri Karangatha AA TOP">
+                    <div class="product-info">
+                        <div class="product-title">Kenya Nyeri Karangatha AA TOP (227±5g)</div>
+                        <div class="product-price">Rp 560,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Blackcurrant, Tomato, Grapefruit, Acidic
+                            </div>
+                            <div class="desc-item"><span>Roast:</span> Medium Light</div>
+                            <div class="desc-item"><span>Region:</span> Nyeri</div>
+                            <div class="desc-item"><span>Variety:</span> SL28, SL34</div>
+                            <div class="desc-item"><span>Process:</span> Washed</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1800m</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Kenya Nyeri Karangatha AA TOP (227±5g)', '560000', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a3480c75002960bc98/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="385000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65d473d61c353d00141f5634/800x.webp?source_format=jpg"
+                        class="product-image" alt="Kenya Kiambu Ruera Natural">
+                    <div class="product-info">
+                        <div class="product-title">Kenya Kiambu Ruera Natural (227±5g)</div>
+                        <div class="product-price">Rp 385,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Plum, Raisin, Dark Chocolate, Syrupy</div>
+                            <div class="desc-item"><span>Roast:</span> Medium</div>
+                            <div class="desc-item"><span>Region:</span> Kiambu</div>
+                            <div class="desc-item"><span>Variety:</span> SL28</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1600m</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Kenya Kiambu Ruera Natural (227±5g)', '385000', 'https://shoplineimg.com/554c75fa039055280b00006e/65d473d61c353d00141f5634/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="375000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2cdd2ab003842ba4c/800x.webp?source_format=png"
+                        class="product-image" alt="Indonesia Sumatra Lintong Lake Toba">
+                    <div class="product-info">
+                        <div class="product-title">Indonesia Sumatra Lintong Lake Toba (227±5g)</div>
+                        <div class="product-price">Rp 375,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Herbal, Earthy, Cedar, Full Body</div>
+                            <div class="desc-item"><span>Roast:</span> Medium Dark</div>
+                            <div class="desc-item"><span>Region:</span> Lintong</div>
+                            <div class="desc-item"><span>Variety:</span> Ateng</div>
+                            <div class="desc-item"><span>Process:</span> Wet Hulled</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1400m</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Indonesia Sumatra Lintong Lake Toba (227±5g)', '375000', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2cdd2ab003842ba4c/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="514800">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png"
+                        class="product-image" alt="Guatemala Antigua Capetillo Pacamara Natural">
+                    <div class="product-info">
+                        <div class="product-title">Guatemala Antigua Capetillo Pacamara Natural (227±5g)</div>
+                        <div class="product-price">Rp 514,800</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Pink Guava、Nectarine、Cantaloupe、Red Cherry
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Region:</span> Antigua</div>
+                            <div class="desc-item"><span>Variety:</span> Pacamara</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1500-1700 Meter</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Guatemala Antigua Capetillo Pacamara Natural (227±5g)', '514800', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="560000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png"
+                        class="product-image" alt="Panama Chiriqui PASSIONFRUIT Geisha ASD Natural SOE SOE">
+                    <div class="product-info">
+                        <div class="product-title">Panama Chiriqui PASSIONFRUIT Geisha ASD Natural SOE SOE (227±5g)
+                        </div>
+                        <div class="product-price">Rp 560,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> SOE Hibiscus、Raspberry、Pomegranate
+                                Fruit、Orange、Darjeeling Black Tea</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Region:</span> Chiriqui</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> ASD Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1670-1950 Meter</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Chiriqui PASSIONFRUIT Geisha ASD Natural SOE SOE (227±5g)', '560000', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="525000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png"
+                        class="product-image" alt="MELLOW TONE Series - Honduras Geisha Natural">
+                    <div class="product-info">
+                        <div class="product-title">MELLOW TONE Series - Honduras Geisha Natural (227±5g)</div>
+                        <div class="product-price">Rp 525,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Maple Syrup、Plum、Dried Prune Plum、Pecan
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Plus</div>
+                            <div class="desc-item"><span>Roast:</span> Medium</div>
+                            <div class="desc-item"><span>Region:</span> Honduras</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'MELLOW TONE Series - Honduras Geisha Natural (227±5g)', '525000', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="471900">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/688c85c4b840ec0014ab4733/800x.webp?source_format=jpg"
+                        class="product-image" alt="The Secret of Honeyfruit & Floral Sprites">
+                    <div class="product-info">
+                        <div class="product-title">The Secret of Honeyfruit & Floral Sprites (227±5g)</div>
+                        <div class="product-price">Rp 471,900</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Hibiscus、Peach、Passion
+                                Fruit、Pineapple、Apple、Coffee Flower</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Panama</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'The Secret of Honeyfruit & Floral Sprites (227±5g)', '471900', 'https://shoplineimg.com/554c75fa039055280b00006e/688c85c4b840ec0014ab4733/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="525000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/688c837b4e96d900161e8c9a/800x.webp?source_format=jpg"
+                        class="product-image" alt="The Black Forest Witch’s Little Jar">
+                    <div class="product-info">
+                        <div class="product-title">The Black Forest Witch’s Little Jar (227±5g)</div>
+                        <div class="product-price">Rp 525,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Black
+                                Cherry、Orangettes、Cointreau、Currant、Hops
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Region:</span> Panama</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha、Sidra、Catuai、SL28</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'The Black Forest Witch’s Little Jar (227±5g)', '525000', 'https://shoplineimg.com/554c75fa039055280b00006e/688c837b4e96d900161e8c9a/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="525000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/688c819809230b000a76edb4/800x.webp?source_format=jpg"
+                        class="product-image" alt="Whispers from the Little Prince’s Star">
+                    <div class="product-info">
+                        <div class="product-title">Whispers from the Little Prince’s Star (227±5g)</div>
+                        <div class="product-price">Rp 525,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Orange Blossom、Apricot、Melon、Orange Valencia
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy</div>
+                            <div class="desc-item"><span>Roast:</span> Light</div>
+                            <div class="desc-item"><span>Region:</span> Panama</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha、San Ramon、Catuai</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Whispers from the Little Prince’s Star (227±5g)', '525000', 'https://shoplineimg.com/554c75fa039055280b00006e/688c819809230b000a76edb4/800x.webp?source_format=jpg', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="360000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2cb709c51b8eb8146/800x.webp?source_format=png"
+                        class="product-image" alt="Colombia COFFEIN COMPAGNIE Decaf Coffee EA Processed">
+                    <div class="product-info">
+                        <div class="product-title">Colombia COFFEIN COMPAGNIE Decaf Coffee EA Processed (227±5g)
+                        </div>
+                        <div class="product-price">Rp 360,000</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Western Pears、Nutmeg、Pine Nuts、Brown Sugar
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Variety:</span> Arabica</div>
+                            <div class="desc-item"><span>Process:</span> Ethyl Acetate Process</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Colombia COFFEIN COMPAGNIE Decaf Coffee EA Processed (227±5g)', '360000', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2cb709c51b8eb8146/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="471900">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png"
+                        class="product-image" alt="Panama Chiriqui Smallholder Wild Batch Geisha Natural">
+                    <div class="product-info">
+                        <div class="product-title">Panama Chiriqui Smallholder Wild Batch Geisha Natural (227±5g)
+                        </div>
+                        <div class="product-price">Rp 471,900</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Yellow Peach、Lime、Orange Blossom、Darjeeling
+                                Black Tea、Blackcurrant</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Region:</span> Chiriqui</div>
+                            <div class="desc-item"><span>Variety:</span> Geisha</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1750 Meter</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Panama Chiriqui Smallholder Wild Batch Geisha Natural (227±5g)', '471900', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="514800">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png"
+                        class="product-image" alt="Guatemala Sierra De Las Minas Farm Xilate Maracaturra Natural">
+                    <div class="product-info">
+                        <div class="product-title">Guatemala Sierra De Las Minas Farm Xilate Maracaturra Natural
+                            (227±5g)</div>
+                        <div class="product-price">Rp 514,800</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Strawberry、Yellow Peach、White Wine、Cocoa
+                            </div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Region:</span> Sierra De Las Minas</div>
+                            <div class="desc-item"><span>Variety:</span> Maracaturra</div>
+                            <div class="desc-item"><span>Process:</span> Natural</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1300 Meter</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Guatemala Sierra De Las Minas Farm Xilate Maracaturra Natural (227±5g)', '514800', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a242b6e5001d4d12f7/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="single-origin" data-packaging="dripbag" data-price="336050">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2cdd2ab003842ba4c/800x.webp?source_format=png"
+                        class="product-image" alt="Indonesia Sumatra Lintong Mandheling Onan-Ganjang Wet Hulled">
+                    <div class="product-info">
+                        <div class="product-title">Indonesia Sumatra Lintong Mandheling Onan-Ganjang Wet Hulled
+                            (227±5g)
+                        </div>
+                        <div class="product-price">Rp 336,050</div>
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Herbal Tea、Candied Olives、Milk Caramel、Dried
+                                Black Plums</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy-Chocolate</div>
+                            <div class="desc-item"><span>Roast:</span> Medium Dark</div>
+                            <div class="desc-item"><span>Region:</span> Sumatra</div>
+                            <div class="desc-item"><span>Variety:</span> Onan Ganjiang</div>
+                            <div class="desc-item"><span>Process:</span> Ｗet-hulled</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Altitude:</span> 1400-1500 Meter</div>
+                        </div>
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Indonesia Sumatra Lintong Mandheling Onan-Ganjang Wet Hulled (227±5g)', '336050', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2cdd2ab003842ba4c/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Blends Drip Bags Subsection -->
+                <div style="grid-column: 1 / -1; margin: 1.5rem 0 0.75rem 0;" data-packaging="dripbag">
+                    <h3
+                        style="font-size: 1.3rem; font-weight: 500; color: #34495e; border-left: 4px solid #e67e22; padding-left: 0.75rem;">
+                        Blends
+                    </h3>
+                </div>
+
+                <div class="product-card" data-category="blended-beans" data-packaging="dripbag"
+                    data-packaging="dripbag" data-price="250000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/666c0997d10ca4000d74ea65/800x.webp?source_format=png"
+                        class="product-image" alt="HOJIFRUIN ESP. Blend">
+                    <div class="product-info">
+                        <div class="product-title">HOJIFRUIN ESP. Blend (227±5g)</div>
+                        <div class="product-price">Rp 250.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Berry Flavored Cocoa、Nuts、Hojicha</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy-Chocolate</div>
+                            <div class="desc-item"><span>Roast:</span> Medium Dark</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Region:</span> Central America、South America、Africa、Asia
+                            </div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'HOJIFRUIN ESP. Blend (227±5g)', '250000', 'https://shoplineimg.com/554c75fa039055280b00006e/666c0997d10ca4000d74ea65/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="blended-beans" data-packaging="dripbag" data-price="360000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/666c0997d10ca4000d74ea65/800x.webp?source_format=png"
+                        class="product-image" alt="FLORUIT Geisha ESP. Blend">
+                    <div class="product-info">
+                        <div class="product-title">FLORUIT Geisha ESP. Blend (227±5g)</div>
+                        <div class="product-price">Rp 360.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Floral、Citrus、Peach、Berry</div>
+                            <div class="desc-item"><span>Sweetness:</span> Candy Bit More</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Region:</span> Central America、South America、Africa</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'FLORUIT Geisha ESP. Blend (227±5g)', '360000', 'https://shoplineimg.com/554c75fa039055280b00006e/666c0997d10ca4000d74ea65/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="blended-beans" data-packaging="dripbag" data-price="240000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/666c0997d10ca4000d74ea65/800x.webp?source_format=png"
+                        class="product-image" alt="007 Full-Bodied Dark Roast Blend">
+                    <div class="product-info">
+                        <div class="product-title">007 Full-Bodied Dark Roast Blend (227±5g)</div>
+                        <div class="product-price">Rp 240.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Caramel Nuts、Werther’s Original Cream
+                                Candies、Smoked Dark Chocolate</div>
+                            <div class="desc-item"><span>Sweetness:</span> Chocolate</div>
+                            <div class="desc-item"><span>Roast:</span> Dark</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Region:</span> Central America、South America</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, '007 Full-Bodied Dark Roast Blend (227±5g)', '240000', 'https://shoplineimg.com/554c75fa039055280b00006e/666c0997d10ca4000d74ea65/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="blended-beans" data-packaging="dripbag" data-price="200000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2f943f30032a59d2f/800x.webp?source_format=png"
+                        class="product-image" alt="Taster's Blend No.10">
+                    <div class="product-info">
+                        <div class="product-title">Taster's Blend No.10 (227±5g)</div>
+                        <div class="product-price">Rp 200.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Berry、Citrus、Nut、Caramel</div>
+                            <div class="desc-item"><span>Roast:</span> Light Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Region:</span> Ethiopia、Panama</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Taster\'s Blend No.10', '200000', 'https://shoplineimg.com/554c75fa039055280b00006e/6170f3a2f943f30032a59d2f/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="blended-beans" data-packaging="dripbag" data-price="220000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/61443faab6108e00298719ba/800x.webp?source_format=png"
+                        class="product-image" alt="Taster's No.7">
+                    <div class="product-info">
+                        <div class="product-title">Taster's No.7 (227±5g)</div>
+                        <div class="product-price">Rp 220.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Peach、Berry、Citrus、Toffee、Cocoa</div>
+                            <div class="desc-item"><span>Roast:</span> Medium</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Region:</span> Kenya、Honduras、Ethiopia</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Taster\'s No.7', '220000', 'https://shoplineimg.com/554c75fa039055280b00006e/61443faab6108e00298719ba/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="blended-beans" data-packaging="dripbag" data-price="210000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/61443fc750b376384c338762/800x.webp?source_format=png"
+                        class="product-image" alt="Taster's Blend No.8">
+                    <div class="product-info">
+                        <div class="product-title">Taster's Blend No.8 (227±5g)</div>
+                        <div class="product-price">Rp 210.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Orange、Berry、Plum、Honey、Almond Chocolate
+                            </div>
+                            <div class="desc-item"><span>Roast:</span> Medium Dark</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Region:</span> Colombia、Guatemala、Kenya、Ethiopia、Honduras
+                            </div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Taster\'s Blend No.8', '210000', 'https://shoplineimg.com/554c75fa039055280b00006e/61443fc750b376384c338762/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card" data-category="blended-beans" data-packaging="dripbag" data-price="200000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/61443ff0dbceef6ad0215f44/800x.webp?source_format=png"
+                        class="product-image" alt="Taster's Blend No.4">
+                    <div class="product-info">
+                        <div class="product-title">Taster's Blend No.4 (227±5g)</div>
+                        <div class="product-price">Rp 200.000</div>
+
+                        <div class="product-description-grid">
+                            <div class="desc-item"><span>Flavor:</span> Plum、Citrus、Nut、Caramel、Bittersweet
+                                Chocolate
+                            </div>
+                            <div class="desc-item"><span>Roast:</span> Dark</div>
+                            <div class="desc-item"><span>Weight:</span> 227±5g</div>
+                            <div class="desc-item"><span>Region:</span> Colombia、Guatemala、Ethiopia、Honduras</div>
+                        </div>
+
+                        <!-- Add to Cart Button -->
+                        <button class="add-to-cart-small"
+                            onclick="window.updateAndStopProp(null, 1, event, 'Taster\'s Blend No.4', '200000', 'https://shoplineimg.com/554c75fa039055280b00006e/61443ff0dbceef6ad0215f44/800x.webp?source_format=png', 'Beans')">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <footer>
+
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Inline Filter and Sort Logic for Beans Page
+        document.addEventListener('DOMContentLoaded', () => {
+            const filterItems = document.querySelectorAll('.filter-item');
+            const productCards = document.querySelectorAll('.product-card');
+            const sortSelect = document.getElementById('sort-select');
+            const grid = document.getElementById('product-grid');
+            const sectionHeaders = grid.querySelectorAll('div[style*="grid-column: 1 / -1"]');
+
+            // 1. Filtering by Packaging
+            filterItems.forEach(item => {
+                item.addEventListener('click', () => {
+                    // Active state
+                    filterItems.forEach(fi => fi.classList.remove('active'));
+                    item.classList.add('active');
+
+                    const packagingFilter = item.dataset.filter;
+
+                    productCards.forEach(card => {
+                        if (packagingFilter === 'all' || card.dataset.packaging === packagingFilter) {
+                            card.style.display = 'block';
+                            // Reset animation
+                            card.classList.remove('fade-in');
+                            void card.offsetWidth; // Trigger reflow
+                            card.classList.add('fade-in');
+                        } else {
+                            card.style.display = 'none';
+                            card.classList.remove('fade-in');
+                        }
+                    });
+
+                    // Show section headers when filtering by packaging
+                    sectionHeaders.forEach(header => {
+                        if (packagingFilter === 'all' || header.dataset.packaging === packagingFilter) {
+                            header.style.display = 'block';
+                        } else {
+                            header.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // 2. Sorting
+            sortSelect.addEventListener('change', () => {
+                const sortValue = sortSelect.value;
+                const cardsArray = Array.from(productCards);
+
+                if (sortValue === 'price-low' || sortValue === 'price-high') {
+                    // Hide all section headers when sorting by price
+                    sectionHeaders.forEach(header => {
+                        header.style.display = 'none';
+                    });
+
+                    cardsArray.sort((a, b) => {
+                        const priceA = parseInt(a.dataset.price.replace(/[^\d]/g, ''));
+                        const priceB = parseInt(b.dataset.price.replace(/[^\d]/g, ''));
+
+                        if (sortValue === 'price-low') {
+                            return priceA - priceB;
+                        } else if (sortValue === 'price-high') {
+                            return priceB - priceA;
+                        }
+                    });
+
+                    // Re-append in new order
+                    cardsArray.forEach(card => grid.appendChild(card));
+                } else {
+                    // Default sorting - restore section headers
+                    location.reload(); // Reload to restore original order with sections
+                }
+            });
+        });
+    </script>
+    <!-- Hamburger Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-sidebar">
+            <div class="menu-header">
+                <div class="menu-brand">JASTIP AARON</div>
+                <span style="cursor:pointer; font-size:2rem;" id="close-menu">&times;</span>
+            </div>
+            <div class="menu-links">
+                <a href="#" class="menu-link mobile-cart-link" onclick="openCart(); closeMenu(); return false;">
+                    Cart <span id="mobile-menu-cart-count">(0)</span>
+                </a>
+                <a href="coffee.html" class="menu-link">Beans</a>
+                <a href="dripper.html" class="menu-link">Drippers</a>
+                <a href="snacks.html" class="menu-link">Snacks</a>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+
+</html>

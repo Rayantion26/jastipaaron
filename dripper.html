@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drippers | Jastip Aaron</title>
+    <link rel="stylesheet" href="styles/main.css">
+</head>
+
+<body>
+    <div id="transition-curtain"></div>
+    <nav class="navbar">
+        <div class="hamburger-icon" id="hamburger-icon">
+            &#9776;
+        </div>
+        <a href="FrontPage.html" class="brand">Jastip Aaron</a>
+        <div class="nav-links">
+            <a href="coffee.html" class="nav-link">Beans</a>
+            <a href="dripper.html" class="nav-link">Drippers</a>
+            <a href="snacks.html" class="nav-link">Snacks</a>
+        </div>
+        <div class="cart-icon" id="cart-icon">
+            CART
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <span style="cursor:pointer" id="close-cart">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items"></div>
+            <div class="cart-footer">
+                <div class="total-price">
+                    <span>Total</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button id="checkout-btn" class="add-to-cart-btn" onclick="window.location.href='payment.html'">Send
+                    Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Header -->
+    <div class="container category-header">
+        <h1 class="category-title">Drippers</h1>
+        <p>Curated Selection.</p>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="container" style="padding-bottom: 6rem;">
+        <div style="display:flex; justify-content:flex-end; margin-bottom:1rem; align-items:center;">
+            <label for="sort-select" style="margin-right:0.5rem;">Sort by:</label>
+            <select id="sort-select" style="padding:0.5rem; border:1px solid #ddd; border-radius:4px;">
+                <option value="default">Featured</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+            </select>
+        </div>
+        <div class="product-grid" id="product-grid">
+
+            <!-- SOLO DRIPPER -->
+            <a href="dripper/solo.html">
+                <div class="product-card" data-price="1350000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6878a95c161340000ad1ffea/360x360f.webp?source_format=JPG"
+                        class="product-image" alt="SOLO DRIPPER">
+                    <div class="product-info">
+                        <div class="product-title">SOLO DRIPPER</div>
+                        <div class="product-price">Rp 1,350,000</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- CT62 Transit Dripper -->
+            <a href="dripper/ct62_transit.html">
+                <div class="product-card" data-price="1750000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6662b6fdca76282c17558a13/360x360f.webp?source_format=jpg"
+                        class="product-image" alt="CT62 Transit Dripper">
+                    <div class="product-info">
+                        <div class="product-title">CT62 Transit Dripper</div>
+                        <div class="product-price">Rp 1,750,000</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- CT62 Coffee Dripper | GOLD -->
+            <a href="dripper/ct62_gold.html">
+                <div class="product-card" data-price="2120000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6695fd9216da2f001367b8d4/800x.webp?source_format=jpg"
+                        class="product-image" alt="CT62 Coffee Dripper | GOLD">
+                    <div class="product-info">
+                        <div class="product-title">CT62 Coffee Dripper | GOLD</div>
+                        <div class="product-price">Rp 2,120,000</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- 3-in-1 Dripper Holder -->
+            <a href="dripper/3in1_holder.html">
+                <div class="product-card" data-price="675000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65e19b30e06fa83f26db8c75/360x360f.webp?source_format=JPG"
+                        class="product-image" alt="3-in-1 Dripper Holder">
+                    <div class="product-info">
+                        <div class="product-title">3-in-1 Dripper Holder</div>
+                        <div class="product-price">Rp 675,000</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- CT62 Coffee Dripper (LINKED) -->
+            <a href="dripper/CT62.html">
+                <div class="product-card" data-price="875000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/663b3c8360b2e90011cbb62f/360x360f.webp?source_format=JPG"
+                        class="product-image" alt="CT62 Coffee Dripper">
+                    <div class="product-info">
+                        <div class="product-title">CT62 Coffee Dripper</div>
+                        <div class="product-price">Rp 875,000</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- CT62 W/Stand -->
+            <a href="dripper/ct62_stand.html">
+                <div class="product-card" data-price="1050000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65be27beea4bb200142b0d0a/360x360f.webp?source_format=JPG"
+                        class="product-image" alt="CT62 Coffee Dripper W/Stand">
+                    <div class="product-info">
+                        <div class="product-title">CT62 Coffee Dripper W/Stand</div>
+                        <div class="product-price">Rp 1,050,000</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- DW62 -->
+            <a href="dripper/dw62.html">
+                <div class="product-card" data-price="925000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/65af83ba0a1699001d7ed857/360x360f.webp?source_format=jpg"
+                        class="product-image" alt="DW62 Coffee Dripper">
+                    <div class="product-info">
+                        <div class="product-title">DW62 Coffee Dripper</div>
+                        <div class="product-price">Rp 925,000</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Bamboo Tripod -->
+            <a href="dripper/bamboo_tripod.html">
+                <div class="product-card" data-price="675000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/63aaa6d25d86750016b17ed9/360x360f.webp?source_format=jpg"
+                        class="product-image" alt="Bamboo Dripper Tripod">
+                    <div class="product-info">
+                        <div class="product-title">Bamboo Dripper Tripod</div>
+                        <div class="product-price">Rp 675,000</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Bamboo Holder -->
+            <a href="dripper/bamboo_holder.html">
+                <div class="product-card" data-price="675000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/6386dd41cd1c06002e089ab5/360x360f.webp?source_format=jpg"
+                        class="product-image" alt="Bamboo Dripper Holder">
+                    <div class="product-info">
+                        <div class="product-title">Bamboo Dripper Holder</div>
+                        <div class="product-price">Rp 675,000</div>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Kadou -->
+            <a href="dripper/kadou_hasami.html">
+                <div class="product-card" data-price="950000">
+                    <img src="https://shoplineimg.com/554c75fa039055280b00006e/61566e52e788c6003ebf13a9/360x360f.webp?source_format=jpg"
+                        class="product-image" alt="Kadou & Hasami">
+                    <div class="product-info">
+                        <div class="product-title">Kadou & Hasami</div>
+                        <div class="product-price">Rp 950,000</div>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <footer>
+
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sortSelect = document.getElementById('sort-select');
+            const grid = document.getElementById('product-grid');
+            const productLinks = Array.from(grid.children);
+
+            sortSelect.addEventListener('change', () => {
+                const sortValue = sortSelect.value;
+
+                productLinks.sort((a, b) => {
+                    const cardA = a.querySelector('.product-card');
+                    const cardB = b.querySelector('.product-card');
+
+                    if (!cardA || !cardB) return 0;
+
+                    const priceA = parseInt(cardA.dataset.price);
+                    const priceB = parseInt(cardB.dataset.price);
+
+                    if (sortValue === 'price-low') {
+                        return priceA - priceB;
+                    } else if (sortValue === 'price-high') {
+                        return priceB - priceA;
+                    } else {
+                        return 0;
+                    }
+                });
+
+                productLinks.forEach(link => grid.appendChild(link));
+            });
+        });
+    </script>
+
+    <!-- Hamburger Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-sidebar">
+            <div class="menu-header">
+                <div class="menu-brand">JASTIP AARON</div>
+                <span style="cursor:pointer; font-size:2rem;" id="close-menu">&times;</span>
+            </div>
+            <div class="menu-links">
+                <a href="#" class="menu-link mobile-cart-link" onclick="openCart(); closeMenu(); return false;">
+                    Cart <span id="mobile-menu-cart-count">(0)</span>
+                </a>
+                <a href="coffee.html" class="menu-link">Beans</a>
+                <a href="dripper.html" class="menu-link">Drippers</a>
+                <a href="snacks.html" class="menu-link">Snacks</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

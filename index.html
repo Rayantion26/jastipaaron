@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jastip Aaron - Premium Coffee & Snacks</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <style>
+        /* Single Page Layout Overrides */
+        body {
+            height: 100vh;
+            /* Force full viewport height */
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* Disable scrolling */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Make Navbar Static & Compact */
+        .navbar {
+            position: relative;
+            top: auto;
+            width: 100%;
+            flex: 0 0 auto;
+            /* Don't shrink/grow */
+            background: rgba(248, 245, 242, 0.95);
+            /* Match bg color approx */
+            backdrop-filter: none;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 1rem 2rem;
+            /* Reduced padding */
+        }
+
+        /* Make Banner Static */
+        #countdown-banner {
+            position: relative !important;
+            top: auto !important;
+            left: auto !important;
+            right: auto !important;
+            flex: 0 0 auto;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: none !important;
+        }
+
+        /* Flex Container for Splits */
+        .split-container {
+            flex: 1;
+            /* Fill remaining vertical space */
+            min-height: 0;
+            /* crucial for nested flex scrolling if needed, or proper sizing */
+            height: auto;
+            display: flex;
+        }
+
+        .split {
+            flex: 1;
+            /* Equal width (desktop) or height (mobile) */
+            height: auto;
+            /* Override fixed height */
+            width: auto;
+        }
+
+        /* Compact Footer */
+        footer {
+            flex: 0 0 auto;
+            padding: 0.8rem !important;
+            margin-top: 0 !important;
+            background: #222;
+            font-size: 0.8rem;
+        }
+
+        /* Button Style Override */
+        .btn-interesting {
+            display: inline-block;
+            padding: 1rem 2rem;
+            border: 2px solid #fff;
+            border-radius: 50px;
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            width: fit-content;
+        }
+
+        .btn-interesting:hover {
+            background: #fff;
+            color: #222 !important;
+        }
+
+        /* Mobile Specifics */
+        @media (max-width: 768px) {
+            .split-container {
+                flex-direction: column;
+            }
+
+            .split {
+                width: 100%;
+                flex: 1;
+                /* Take 50% of available height each */
+            }
+
+            /* Disable hover expansion on mobile */
+            .split:hover {
+                flex: 1 !important;
+            }
+
+            .navbar {
+                padding: 0.8rem 1rem;
+            }
+
+            .brand {
+                font-size: 1.2rem;
+            }
+
+            /* Ensure text fits */
+            .split h2 {
+                font-size: 2rem;
+            }
+
+            /* Adjust nav links for mobile if not hidden */
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="transition-curtain"></div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="hamburger-icon" id="hamburger-icon">
+            &#9776;
+        </div>
+        <a href="FrontPage.html" class="brand">Jastip Aaron</a>
+        <div class="nav-links">
+            <a href="coffee.html" class="nav-link">Beans</a> <a href="dripper.html" class="nav-link">Drippers</a>
+            <a href="snacks.html" class="nav-link">Snacks</a>
+        </div>
+        <div class="cart-icon" id="cart-icon">
+            CART
+            <span class="cart-count" id="cart-count">0</span>
+        </div>
+    </nav>
+
+    <!-- Cart Overlay -->
+    <div class="cart-overlay" id="cart-overlay">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h3>Your Cart</h3>
+                <span style="cursor:pointer" id="close-cart">&times;</span>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <!-- Items injected here -->
+            </div>
+            <div class="cart-footer">
+                <div class="total-price">
+                    <span>Total</span>
+                    <span id="cart-total">Rp 0</span>
+                </div>
+                <button id="checkout-btn" class="add-to-cart-btn" onclick="window.location.href='payment.html'">Send
+                    Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Split Screen Content -->
+    <div class="split-container">
+        <!-- Left Side: Coffee -->
+        <!-- Left Side: Coffee -->
+        <div class="split left" style="cursor: default;">
+            <div class="split-content">
+                <div id="coffee-countdown"
+                    style="color: #ff4444; font-weight: 900; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
+                    ⚠️ Order Closes: 14 January | <span id="countdown-timer">Loading...</span>
+                </div>
+                <h2 style="cursor: default;">Coffee</h2>
+                <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <a href="coffee.html" class="btn-interesting" style="text-decoration: none;">Shop Beans</a>
+                    <a href="dripper.html" class="btn-interesting" style="text-decoration: none;">Shop Drippers</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Side: Snacks -->
+        <a href="snacks.html" class="split right">
+            <div class="split-content">
+                <div id="snacks-countdown"
+                    style="color: #ff4444; font-weight: 900; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 1px; font-size: 1rem; text-shadow: 0 2px 4px rgba(0,0,0,0.8);">
+                    ⚠️ Order Closes: 9 January | <span id="snacks-timer">Loading...</span>
+                </div>
+                <h2>Snacks</h2>
+                <span class="btn-interesting">Discover Treats</span>
+            </div>
+        </a>
+    </div>
+
+    <!-- Hamburger Menu Overlay -->
+    <div class="menu-overlay" id="menu-overlay">
+        <div class="menu-sidebar">
+            <div class="menu-header">
+                <div class="menu-brand">JASTIP AARON</div>
+                <span style="cursor:pointer; font-size:2rem;" id="close-menu">&times;</span>
+            </div>
+            <div class="menu-links">
+                <a href="#" class="menu-link mobile-cart-link" onclick="openCart(); closeMenu(); return false;">
+                    Cart <span id="mobile-menu-cart-count">(0)</span>
+                </a>
+                <div style="color: #ff4444; font-weight: bold; padding: 10px 0; border-bottom: 1px solid #333;">⚠️ Order
+                    closes: <span id="menu-countdown">Loading...</span></div>
+                <a href="coffee.html" class="menu-link">Beans</a>
+                <a href="dripper.html" class="menu-link">Drippers</a>
+                <a href="snacks.html" class="menu-link">Snacks</a>
+            </div>
+        </div>
+    </div>
+
+    <footer style="background-color: #222; color: #fff; text-align: center;">
+        <p>Contact: +62 85183005811 | &copy; 2026 Jastip Aaron</p>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script>
+        function updateCountdown() {
+            const coffeeDeadline = new Date('2026-01-14T23:59:00+07:00');
+            const snacksDeadline = new Date('2026-01-09T23:59:00+07:00');
+            const now = new Date();
+
+            // Helper for formatted time
+            const diffToString = (target) => {
+                const diff = target - now;
+                if (diff <= 0) return 'CLOSED';
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+
+            // Update Coffee Timer
+            const coffeeText = diffToString(coffeeDeadline);
+            if (document.getElementById('countdown-timer')) document.getElementById('countdown-timer').textContent = coffeeText;
+
+            // Update Snacks Timer
+            const snacksText = diffToString(snacksDeadline);
+            if (document.getElementById('snacks-timer')) document.getElementById('snacks-timer').textContent = snacksText;
+
+            // Menu: Show Coffee Deadline as main
+            if (document.getElementById('menu-countdown')) document.getElementById('menu-countdown').textContent = coffeeText;
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+
+</html>
