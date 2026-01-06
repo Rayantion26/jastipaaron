@@ -570,7 +570,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const path = window.location.pathname.toLowerCase();
 
         // Identify Page Types
-        const isFrontPage = path.includes('frontpage') || path.includes('index.html') || (path.endsWith('/') && path.length < 5) || path.endsWith('/jastipaaron/');
+        const isFrontPage = path.includes('index.html') || (path.endsWith('/') && path.length < 5) || path.endsWith('/jastipaaron/');
         const isCoffee = path.includes('coffee') || path.includes('beans');
         const isDripper = path.includes('dripper');
         const isSnacks = path.includes('snacks');
